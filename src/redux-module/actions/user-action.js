@@ -3,12 +3,17 @@ import { ActionTypes } from "../constants/user-action-types";
 import axios from "axios";
 
 export const updateUser = (user) => async (dispatch) => {
-  const response = await axios.put(`${API_URL}/${user.id}`, user);
-  const updatedUser = await response.data;
-  dispatch({
-    type: ActionTypes.UPDATE_USER,
-    payload: updatedUser,
-  });
+  try {
+    const response = await axios.put(`${API_URL}/${user.id}`, user);
+    const updatedUser = await response.data;
+    alert("User Updated Successfully");
+    dispatch({
+      type: ActionTypes.UPDATE_USER,
+      payload: updatedUser,
+    });
+  } catch (error) {
+    alert(error);
+  }
 };
 
 export const fetchUsers = () => async (dispatch) => {
@@ -24,11 +29,18 @@ export const fetchUsers = () => async (dispatch) => {
   dispatch({ type: ActionTypes.FETCH_USER, payload: data });
 };
 
-export const addUser = (user) => {
-  return {
-    type: ActionTypes.ADD_USER,
-    payload: user,
-  };
+export const addUser = (user) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${API_URL}/create`, user);
+    const addedUser = await response.data;
+    alert("User Added Successfully");
+    dispatch({
+      type: ActionTypes.ADD_USER,
+      payload: addedUser,
+    });
+  } catch (error) {
+    alert(error);
+  }
 };
 
 export const removeUser = () => {

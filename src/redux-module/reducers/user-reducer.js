@@ -8,10 +8,10 @@ export const UserReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.UPDATE_USER:
       if (payload) {
-        console.log(state)
+        console.log(state);
         state.users.forEach((user) => {
           if (user.id === payload.id) {
-            user = Object.assign({},payload);
+            user = Object.assign({}, payload);
           }
         });
       }
@@ -26,7 +26,12 @@ export const UserReducer = (state = initialState, { type, payload }) => {
         users: payload,
       };
 
-    // create -> users : [...state.users, payload]
+    case ActionTypes.ADD_USER:
+      return {
+        ...state,
+        users: [...state.users, payload],
+      };
+
     default: {
       return state;
     }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { updateUser } from "../redux-module/actions/user-action";
+import { addUser, updateUser } from "../redux-module/actions/user-action";
 
 export const UserForm = () => {
     const { state } = useLocation();
@@ -24,7 +24,11 @@ export const UserForm = () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        dispatch(updateUser(user));
+        if(state?.id){
+            dispatch(updateUser(user));
+        }else{
+            dispatch(addUser(user));
+        }
     }
 
     const onBack = () => {

@@ -4,11 +4,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { updateUser } from "../redux-module/actions/user-action";
 
 export const UserForm = () => {
-    const {state } = useLocation();
+    const { state } = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [user, setUser] = useState({
+        id: state?.id,
         first_name: state?.first_name || '',
         last_name: state?.last_name || '',
         email: state?.email || ''
@@ -46,7 +47,7 @@ export const UserForm = () => {
                                 type="text"
                                 name="first_name"
                                 onChange={onChangeHandler}
-                                value={state?.first_name || ''}
+                                value={user.first_name}
                             />
 
                             <label htmlFor="">Last Name</label>
@@ -55,7 +56,7 @@ export const UserForm = () => {
                                 type="text"
                                 name="last_name"
                                 onChange={onChangeHandler}
-                                value={state?.last_name || ''}
+                                value={user.last_name}
                             />
                             <label htmlFor="">Email</label>
                             <input
@@ -63,7 +64,7 @@ export const UserForm = () => {
                                 type="email"
                                 name="email"
                                 onChange={onChangeHandler}
-                                value={state?.email || ''}
+                                value={user.email}
                                 disabled={state?.email}
                             />
                             <button onClick={onSubmit} className="btn btn-primary mt-4">{state?.id ? 'Update' : 'Add'} User</button>
